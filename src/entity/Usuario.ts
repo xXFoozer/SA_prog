@@ -2,22 +2,22 @@ import{v4 as uuid }from 'uuid';
 
 
 export default class Usuario{
-    private id: string
+    private id: number
     private name: string
     private email: string
     private password: string
-    private data_nacimento:Date
-    private criado_em:Date
-    private atualizado_em:Date
+    private endereco:string
+    private cpf:string
+    private telefone:string
 
 
-    constructor(name:string, email: string, password: string, data_nacimento: Date){
-        this.id = uuid()
+    constructor( name:string, email: string, password: string, endereco: string,cpf: string, telefone:string){
+        this.id = Math.floor(Math.random() * 10000); // Gera um número entre 0 e 10000
         this.name= name;
         this.email= email;
-        this.data_nacimento= data_nacimento;
-        this.criado_em= new Date();
-        this.atualizado_em = new Date();
+        this.endereco= endereco;
+        this.cpf= cpf;
+        this.telefone = telefone
        this.password = password;
     }
 
@@ -38,15 +38,15 @@ export default class Usuario{
         return this.password;
     }
 
-    public getDataNascimento(){
-        return this.data_nacimento;
+    public getEndereco(){
+        return this.endereco;
     }
 
-    public getCriadoEm() {
-        return this.criado_em;
+    public getCpf() {
+        return this.cpf;
     }
 
-    public getAtualizadoEm() {
-        return this.atualizado_em;
+    public getTelefone() {
+        return this.telefone;
     }
 }

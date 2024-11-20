@@ -4,6 +4,7 @@ import VeiculoRepository from './repository/VeiculoRepository';
 import UsuarioRepository from './repository/UsuarioRepository';
 import Ususario from './entity/Usuario';
 import { compare, hash } from 'bcrypt';
+import Usuario from './entity/Usuario';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -70,9 +71,9 @@ ipcMain.handle('deletarVeiculo', async (_: any, id: string)=> {
 })
 
 ipcMain.handle('createUsuario', async (_:any, usuario: any)=>{
-  const{id,name,email,password,data_nacimento,criado_em,atualizado_em} = usuario;
+  const{name,email,password,endereco,cpf,telefone} = usuario;
   const passwordHash = await hash(password, 12);
-  const newUsuario = new Ususario(name,email,passwordHash,data_nacimento)
+  const newUsuario = new Usuario(name,email,passwordHash,endereco,cpf,telefone)
   await new UsuarioRepository ().save(newUsuario);
 })
 

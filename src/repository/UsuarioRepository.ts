@@ -9,7 +9,7 @@ export default class UsuarioRepository {
          this.connection = new Client({
             host: 'localhost',
             port: 5432,
-            database: 'revenda',
+            database: 'sa_fabrica',
             user: 'postgres',
             password: 'senai'      
         })
@@ -20,15 +20,15 @@ export default class UsuarioRepository {
     async save(usuario: Ususario){
         try {
             this.connection.connect()
-            const sql = "INSERT INTO usuario (id, nome, email, password_hash, data_nacimento, criado_em, atualizado_em) VALUES ($1, $2, $3, $4, $5, $6, $7)";
+            const sql = "INSERT INTO usuario (id, nome, email, password_hash, endereco, cpf, telefone) VALUES ($1, $2, $3, $4, $5, $6, $7)";
             const values = [
                 usuario.getId(),
                 usuario.getName(),
                 usuario.getEmail(),
                 usuario.getPassword(),
-                usuario.getDataNascimento(),
-                usuario.getCriadoEm(),
-                usuario.getAtualizadoEm()
+                usuario.getEndereco(),
+                usuario.getCpf(),
+                usuario.getTelefone()
             ];
             await this.connection.query(sql, values);
         } catch (error) {
