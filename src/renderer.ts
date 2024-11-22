@@ -1,4 +1,5 @@
 import Veiculo from './entity/Veiculo';
+import * as echarts from 'echarts';
 import './index.css';
 
 var listaVeiculos:Veiculo[] = [];
@@ -35,10 +36,22 @@ window.onload = async () => {
           const veiculo = new Veiculo (veiculos[i].modelo, veiculos[i].cor, veiculos[i].ano,veiculos[i].preco,veiculos[i].placa,veiculos[i].imagem,veiculos[i].id)
           listaVeiculos.push(veiculo)
      }
-     render()
-    
+    // render()
+    desenharGrafico();
+    desenharGraficoLinha();
+    desenharGraficoPizza();
+    preencheComboBox()
 }
-
+function preencheComboBox() {
+     var combobox = document.getElementById("combobox");
+     combobox.innerHTML = `<option value="" disabled="true">Selecione uma opção</option>`;
+ 
+     for (var i = 0; i < listaVeiculos.length; i++) {
+         combobox.innerHTML += `
+             <option value="${listaVeiculos[i].getid()}">${listaVeiculos[i].getModelo()}</option>
+         `;
+     }
+ }
 
 function render(){
      var aside = document.getElementById("lista-veiculo");
@@ -62,7 +75,73 @@ function render(){
           `
      }
 }
+function desenharGrafico(){
+     const teste = document.getElementById("barra") as HTMLDivElement
+ 
+     const chart = echarts.init(teste);
+     const option = {
+        title: { text: "Estoque" },
+         xAxis: { 
+             data: ['Semana 1', 'Semana 2', 'Semana 3 ', 'Semana 4'] 
+         },
+         yAxis: { 
+             type: 'value' 
+         },
+         series: [{
+             type: 'bar',
+             data: [10, 30, 30, 40]
+         }]
+     };
+ 
+     chart.setOption(option);
+ }
 
+ function desenharGraficoLinha(){
+     const teste = document.getElementById("linha") as HTMLDivElement
+ 
+     console.log(teste)
+     const chart = echarts.init(teste);
+     const option = {
+        
+         title: { text: "Vendas" },
+         xAxis: { data: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun'] },
+         yAxis: { type: 'value' },
+         series: [{
+             type: 'line',
+             data: [10, 20, 30, 40, 200]
+         }]
+     };
+ 
+     chart.setOption(option);
+ }
+function desenharGraficoPizza() {
+    const teste = document.getElementById("pizza") as HTMLDivElement;
+
+    const chart = echarts.init(teste);
+    const option = {
+        title: { text: 'Distribuição de Vendas', x: 'center' },
+        tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
+        legend: { orient: 'vertical', left: 'left', data: ['Produto A', 'Produto B', 'Produto C', 'Produto D'] },
+        series: [{
+            name: 'Vendas',
+            type: 'pie', // Tipo de gráfico de pizza
+            radius: ['35%', '75%'], // Donut (com buraco no meio)
+            avoidLabelOverlap: false,
+            label: { show: false, position: 'center' },
+            labelLine: { show: false },
+            data: [
+                { value: 335, name: 'Produto A' },
+                { value: 234, name: 'Produto B' },
+                { value: 154, name: 'Produto C' },
+                { value: 335, name: 'Produto D' },
+                { value: 100, name: 'Produto E' },
+                { value: 100, name: 'Produto F' },
+            ]
+        }]
+    };
+
+    chart.setOption(option);
+}
 
 function deletarVeiculo(id: string){
      // CHAMA A FUNÇÃO DELETAR DO PRELOAD, NO CONTEXTO DE 'bancoAPI'

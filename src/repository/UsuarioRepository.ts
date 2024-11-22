@@ -1,5 +1,5 @@
 import { Client } from "pg";
-import Ususario from "src/entity/Usuario";
+import Usuario from "src/entity/Usuario";
 
 export default class UsuarioRepository {
     private connection: Client
@@ -17,7 +17,7 @@ export default class UsuarioRepository {
         
     }
 
-    async save(usuario: Ususario){
+    async save(usuario: Usuario){
         try {
             this.connection.connect()
             const sql = "INSERT INTO usuario (id, nome, email, password_hash, endereco, cpf, telefone) VALUES ($1, $2, $3, $4, $5, $6, $7)";
