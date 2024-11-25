@@ -34,9 +34,9 @@ const config: ForgeConfig = {
             },
           },
           {
-            html: './src/detalhes.html',
-            js: './src/detalhes.ts',
-            name: 'detalhes',
+            html: './src/producao.html',
+            js: './src/producaoRender.ts',
+            name: 'producao',
             preload: {
               js: './src/preload.ts',
             },
