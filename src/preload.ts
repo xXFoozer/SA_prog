@@ -1,6 +1,6 @@
 import { contextBridge, ipcRenderer } from "electron";
 import Veiculo from "./entity/Veiculo";
-import Ususario from "./entity/Usuario";
+import Usuario from "./entity/Usuario";
 
 contextBridge.exposeInMainWorld('bancoAPI', {
     createVeiculo: async (veiculo:Veiculo) => await ipcRenderer.invoke('create', veiculo),
@@ -14,10 +14,14 @@ contextBridge.exposeInMainWorld('bancoAPI', {
 contextBridge.exposeInMainWorld('navigateAPI', {
     irPaginaDetalhes: (id: string) => ipcRenderer.send("change-screen", id),
     irPaginaHome: () => ipcRenderer.send("change-screen-home"),
-
+    irPaginaProducao: () => ipcRenderer.send("change-screen-product")
 })
 
 contextBridge.exposeInMainWorld('authAPI', {
     hash:async (credentials: any) => await ipcRenderer.invoke("hash_password",credentials)
+
+})
+contextBridge.exposeInMainWorld('productAPI', {
+    createProduct:async (product: any) => await ipcRenderer.invoke("createProduct",product)
 
 })

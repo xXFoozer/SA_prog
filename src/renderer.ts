@@ -157,5 +157,14 @@ function irPaginaDetalhes(id: string){
      (window as any).navigateAPI.irPaginaDetalhes(id);
 }
 
+document.getElementById("producao")?.addEventListener("click", async (event: MouseEvent) => {
+    event.preventDefault();
+    function irPaginaProducao() {
+        (window as any).navigateAPI.irPaginaProducao();
+    }
+    irPaginaProducao()
+});
+
+
 (window as any).deletarVeiculo = deletarVeiculo;
 (window as any).irPaginaDetalhes = irPaginaDetalhes;

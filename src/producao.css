@@ -86,5 +86,11 @@
     background-color: #2f4e86;
   }
 
-
+  aside {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 400px 400px 400px;
+    gap: 20px;
+  }
 

@@ -2,9 +2,10 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import Veiculo from './entity/Veiculo';
 import VeiculoRepository from './repository/VeiculoRepository';
 import UsuarioRepository from './repository/UsuarioRepository';
-import Ususario from './entity/Usuario';
 import { compare, hash } from 'bcrypt';
 import Usuario from './entity/Usuario';
+import Producao from './entity/Producao';
+import ProducaoRepository from './repository/ProducaoRepository copy';
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
@@ -25,7 +26,7 @@ const createWindow = (): void => {
     },
   });
 
-  mainWindow.loadURL("http://localhost:3000/producao");
+  mainWindow.loadURL("http://localhost:3000/main_window");
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -89,9 +90,17 @@ ipcMain.handle('hash_password', async (_:any, credentials: any)=>{
 ipcMain.on('change-screen', (_: any, id: string) => {
     mainWindow.loadURL(DETALHES_WEBPACK_ENTRY +`?id=${id}`)
     
-  })
-  ipcMain.on('change-screen-home', () => {
+})
+ipcMain.on('change-screen-home', () => {
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY)
-   
+})
+ipcMain.on('change-screen-product', ()=> {
+    mainWindow.loadURL("http://localhost:3000/producao")
 })
 
+
+ipcMain.handle('createProduct', async (_:any, product: any)=>{
+  const {modelo,chassi,cor,pecas, motor,pneu } = product
+  const novoProduct = new Producao(modelo,chassi,cor,pecas,motor,pneu)
+  new ProducaoRepository().save(novoProduct);
+})
