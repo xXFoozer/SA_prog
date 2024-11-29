@@ -38,6 +38,22 @@ export default class ProducaoRepository {
             this.connection = null;
         }
     }
+    public async findAll() {
+        try {
+            await this.connection.connect();
+            const sql = "SELECT * FROM producao";
+            
+            const response = await this.connection.query(sql);
+    
+            return response.rows;
+        }catch(error: any){
+            console.log(error)
+        }finally {
+            this.connection.end();
+        }
+    }
+
+    
 
     
 

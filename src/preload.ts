@@ -22,6 +22,8 @@ contextBridge.exposeInMainWorld('authAPI', {
 
 })
 contextBridge.exposeInMainWorld('productAPI', {
-    createProduct:async (product: any) => await ipcRenderer.invoke("createProduct",product)
+    createProduct:async (product: any) => await ipcRenderer.invoke("createProduct",product),
+    findAll: async () => await ipcRenderer.invoke("find_all_product"),
+
 
 })

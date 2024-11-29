@@ -104,3 +104,6 @@ ipcMain.handle('createProduct', async (_:any, product: any)=>{
   const novoProduct = new Producao(modelo,chassi,cor,pecas,motor,pneu)
   new ProducaoRepository().save(novoProduct);
 })
+ipcMain.handle('find_all_product', async ()=> {
+  return await new ProducaoRepository().findAll();
+})

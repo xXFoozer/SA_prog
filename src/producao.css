@@ -76,6 +76,7 @@
     font-weight: bold;
     padding: 16px 20px;
     margin-top: 8px;
+    margin-left: 45px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -93,4 +94,3 @@
     grid-template-rows: 400px 400px 400px;
     gap: 20px;
   }
-

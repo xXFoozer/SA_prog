@@ -1,6 +1,7 @@
 import Veiculo from './entity/Veiculo';
 import * as echarts from 'echarts';
 import './index.css';
+import Producao from './entity/Producao';
 
 var listaVeiculos:Veiculo[] = [];
 
@@ -54,7 +55,7 @@ function preencheComboBox() {
  }
 
 function render(){
-     var aside = document.getElementById("lista-veiculo");
+     var aside = document.getElementById("grafico");
      aside.innerHTML = "";
      for(var i=0; i <listaVeiculos.length; i++){
           aside.innerHTML += `
@@ -75,24 +76,37 @@ function render(){
           `
      }
 }
-function desenharGrafico(){
+async function  desenharGrafico(){
      const teste = document.getElementById("barra") as HTMLDivElement
- 
+     const values = await (window as any).productAPI.findAll();
+     console.log(values);
+
+     const modelos = values.map((item:Producao) => item.getModelo());
+     const chassi = values.map((item:Producao) => item.getChassi());
+     const cor = values.map((item:Producao) => item.getCor());
+     const pecas = values.map((item:Producao) => item.getPecas());
+     const motor = values.map((item:Producao )=> item.getMotor());
+     const placas = values.map((item:Producao )=> item.getPneu());
+
+
+
+
+
      const chart = echarts.init(teste);
      const option = {
-        title: { text: "Estoque" },
+         title: { text: "Produção" },
          xAxis: { 
-             data: ['Semana 1', 'Semana 2', 'Semana 3 ', 'Semana 4'] 
+             data: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'] 
          },
          yAxis: { 
              type: 'value' 
          },
          series: [{
              type: 'bar',
-             data: [10, 30, 30, 40]
+             data: [modelos,chassi,cor,pecas,motor,placas]
          }]
      };
- 
+
      chart.setOption(option);
  }
 
@@ -164,6 +178,8 @@ document.getElementById("producao")?.addEventListener("click", async (event: Mou
     }
     irPaginaProducao()
 });
+
+
 
 
 (window as any).deletarVeiculo = deletarVeiculo;

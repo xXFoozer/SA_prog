@@ -5,7 +5,6 @@ import './producao.css';
 document.getElementById("botao-cadastrar")?.addEventListener("click", async (event: MouseEvent) => {
     event.preventDefault();
   
-
    var modelo = document.getElementById("modelo") as HTMLInputElement;
    var chassi = document.getElementById("chassi") as HTMLInputElement;
    var cor = document.getElementById("cor") as HTMLInputElement;
@@ -25,8 +24,10 @@ document.getElementById("botao-cadastrar")?.addEventListener("click", async (eve
 
 
    (window as any).productAPI.createProduct(producao);
+})
 
-
-
+document.getElementById("botao-voltar").addEventListener("click", async(event: MouseEvent) => {
+  event.preventDefault();
+  (window as any).navigateAPI.irPaginaHome();
 })
 
