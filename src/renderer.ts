@@ -94,7 +94,7 @@ async function desenharGraficoPizza() {
     
     const chart = echarts.init(teste);
     const option = {
-        title: { text: 'Distribuição de Vendas', x: 'center' },
+        title: { text: 'produção', x: 'center' },
         tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
         legend: { orient: 'vertical', left: 'left', data: legenda },
         series: [{
