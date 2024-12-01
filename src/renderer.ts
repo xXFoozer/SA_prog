@@ -38,8 +38,8 @@ window.onload = async () => {
           listaVeiculos.push(veiculo)
      }
     // render()
-    desenharGrafico();
-    desenharGraficoLinha();
+    
+   
     desenharGraficoPizza();
     preencheComboBox()
 }
@@ -76,66 +76,27 @@ function render(){
           `
      }
 }
-async function  desenharGrafico(){
-     const teste = document.getElementById("barra") as HTMLDivElement
-     const values = await (window as any).productAPI.findAll();
-     console.log(values);
-
-     const modelos = values.map((item:Producao) => item.getModelo());
-     const chassi = values.map((item:Producao) => item.getChassi());
-     const cor = values.map((item:Producao) => item.getCor());
-     const pecas = values.map((item:Producao) => item.getPecas());
-     const motor = values.map((item:Producao )=> item.getMotor());
-     const placas = values.map((item:Producao )=> item.getPneu());
-
-
-
-
-
-     const chart = echarts.init(teste);
-     const option = {
-         title: { text: "Produção" },
-         xAxis: { 
-             data: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'] 
-         },
-         yAxis: { 
-             type: 'value' 
-         },
-         series: [{
-             type: 'bar',
-             data: [modelos,chassi,cor,pecas,motor,placas]
-         }]
-     };
-
-     chart.setOption(option);
- }
-
- function desenharGraficoLinha(){
-     const teste = document.getElementById("linha") as HTMLDivElement
- 
-     console.log(teste)
-     const chart = echarts.init(teste);
-     const option = {
-        
-         title: { text: "Vendas" },
-         xAxis: { data: ['Jan', 'Feb', 'Mar', 'Apr', 'Jun'] },
-         yAxis: { type: 'value' },
-         series: [{
-             type: 'line',
-             data: [10, 20, 30, 40, 200]
-         }]
-     };
- 
-     chart.setOption(option);
- }
-function desenharGraficoPizza() {
+async function desenharGraficoPizza() {
     const teste = document.getElementById("pizza") as HTMLDivElement;
+    const dadosProducao = await (window as any).productAPI.findAllGrafico();
+    console.log(dadosProducao)
+    let dados : any[] = []
+    let legenda: string[] = []
+    dadosProducao.forEach((valor: any) => {
 
+        const item ={
+            value: valor.quantidade,
+            name: valor.modelo
+        }
+        legenda.push(valor.modelo)
+        dados.push(item)
+    })
+    
     const chart = echarts.init(teste);
     const option = {
         title: { text: 'Distribuição de Vendas', x: 'center' },
         tooltip: { trigger: 'item', formatter: '{a} <br/>{b}: {c} ({d}%)' },
-        legend: { orient: 'vertical', left: 'left', data: ['Produto A', 'Produto B', 'Produto C', 'Produto D'] },
+        legend: { orient: 'vertical', left: 'left', data: legenda },
         series: [{
             name: 'Vendas',
             type: 'pie', // Tipo de gráfico de pizza
@@ -143,14 +104,7 @@ function desenharGraficoPizza() {
             avoidLabelOverlap: false,
             label: { show: false, position: 'center' },
             labelLine: { show: false },
-            data: [
-                { value: 335, name: 'Produto A' },
-                { value: 234, name: 'Produto B' },
-                { value: 154, name: 'Produto C' },
-                { value: 335, name: 'Produto D' },
-                { value: 100, name: 'Produto E' },
-                { value: 100, name: 'Produto F' },
-            ]
+            data: dados
         }]
     };
 

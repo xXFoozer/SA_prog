@@ -107,3 +107,6 @@ ipcMain.handle('createProduct', async (_:any, product: any)=>{
 ipcMain.handle('find_all_product', async ()=> {
   return await new ProducaoRepository().findAll();
 })
+ipcMain.handle('findAllGrafico', async ()=> {
+  return await new ProducaoRepository().findAllGrafico();
+})

@@ -53,7 +53,20 @@ export default class ProducaoRepository {
         }
     }
 
+    public async findAllGrafico() {
+        try {
+            await this.connection.connect();
+            const sql = "SELECT modelo, COUNT(*) as quantidade FROM producao GROUP BY modelo";
+            
+            const response = await this.connection.query(sql);
     
+            return response.rows;
+        }catch(error: any){
+            console.log(error)
+        }finally {
+            this.connection.end();
+        }
+    }
 
     
 
