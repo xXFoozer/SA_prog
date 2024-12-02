@@ -26,7 +26,7 @@ const createWindow = (): void => {
     },
   });
 
-  mainWindow.loadURL("http://localhost:3000/main_window");
+  mainWindow.loadURL("http://localhost:3000/login");
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
