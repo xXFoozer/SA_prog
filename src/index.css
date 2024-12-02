@@ -5,7 +5,7 @@
 }
 
 body{
-  background-color: #a7c5fd;
+  background-color: #809dd3;
 }
 
 header{
@@ -85,8 +85,8 @@ form .input-data input{
 
 form button {
   width: 100%;
-  margin-top: 5px;
-  background-color: #7a4fc4;
+  margin-top: 200px;
+  background-color: #3a475f;;
   color: #ffffff;
   font-size: 20px;
   font-weight: bold;
@@ -97,7 +97,7 @@ form button {
 }
 
 form button:hover{
-  background-color: #6931b1;
+  background-color: #526381;;
 }
 
 .card {
